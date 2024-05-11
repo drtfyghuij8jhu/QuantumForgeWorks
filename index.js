@@ -1,1 +1,6 @@
-const flatten = (arr) => arr.reduce((a, v) => a.concat(v), []);
+function reverseWords(str) {
+  return str
+    .split(" ")
+    .map((word) => word.split("").reverse().join(""))
+    .join(" ");
+}
