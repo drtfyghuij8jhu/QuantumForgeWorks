@@ -1,12 +1,21 @@
-function longestPalindromeSubseq(s) {
-  const n = s.length;
-  const dp = Array.from(Array(n), () => Array(n).fill(0));
-  for (let i = n - 1; i >= 0; i--) {
-    dp[i][i] = 1;
-    for (let j = i + 1; j < n; j++) {
-      if (s[i] === s[j]) dp[i][j] = dp[i + 1][j - 1] + 2;
-      else dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+function permuteUnique(nums) {
+  const result = [];
+  nums.sort((a, b) => a - b);
+  backtrack([], new Array(nums.length).fill(false));
+  return result;
+  function backtrack(current, used) {
+    if (current.length === nums.length) {
+      result.push([...current]);
+      return;
+    }
+    for (let i = 0; i < nums.length; i++) {
+      if (used[i] || (i > 0 && nums[i] === nums[i - 1] && !used[i - 1]))
+        continue;
+      current.push(nums[i]);
+      used[i] = true;
+      backtrack(current, used);
+      current.pop();
+      used[i] = false;
     }
   }
-  return dp[0][n - 1];
 }
